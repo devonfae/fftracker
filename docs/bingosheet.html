@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<head>
+<title>Final Fantasy Tracker</title>
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 0;
+}
+.stamp {
+	 display: none;
+	 margin: -24px;
+	 width: 128px;
+	 height: 128px;
+	 opacity: 0.8;
+}
+.blank {
+	display: inline-block;
+	margin: -24px;
+	width: 128px;
+	height: 128px;
+}
+.ctrl {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+}
+.ctrl2 {
+	display: none;
+	width: 80px;
+	height: 80px;
+}
+
+img {
+	margin: auto;
+}
+.frame {
+	display: inline-block;
+	border: 8px solid transparent;
+	margin: 0px auto -8px;
+	width: auto;
+	padding: 0;
+	text-align: center;
+}
+.blue_frame {
+	border-image: url('border.png') 8 repeat;
+	background-color: #251F8A;
+}
+</style>
+</head>
+
+<body onload="setup()">
+<canvas id="base" width="128" height="128" style="display: none;"></canvas>
+<img src="bingologo320.png" style="position: relative; left: 40px;"><br>
+
+<div id="launcher" style="position: absolute; top: 160px; width: 400px; height: 400px; z-index: 2;">
+	<div id="rules" style="position: relative; top: 20px; width: 80%; color: black; font: 16px serif; text-align: center; margin: auto;">
+	<p>Welcome to the<br>Final Fantasy Randomizer Bingo Challenge!</p>
+	<div id="selection" style="display: none;">
+	<p>Select your stamp:</p>
+	<p style="font: 24px serif;">
+		<form>
+ 		  Color: <select id="color" name="color" oninput="doStamp()">
+   			 <option value="red" selected>Red</option>
+ 			 <option value="limegreen">Green</option>
+ 			 <option value="dodgerblue">Blue</option>
+			 <option value="darkorchid">Purple</option>
+			 <option value="hotpink">Pink</option>
+		  </select><br><br>
+		  Symbol: <select id="symbol" name="symbol" oninput="doStamp()">
+   			 <option value="dot" selected>Dot</option>
+ 			 <option value="flower">Flower</option>
+ 			 <option value="star">Star</option>
+			 <option value="logo">FF Logo</option>
+			 <option value="helm">Helmet</option>
+ 			 <option value="redmage">Red Mage hat</option>
+ 			 <option value="blackmage">Black Mage hat</option>
+			 <option value="chocobo">Chocobo</option>
+			 <option value="moogle">Moogle</option>
+ 			 <option value="xcal">Excalibur</option>
+ 			 <option value="masmune">Masamune</option>
+			 <option value="bane">Bane Sword</option>
+			 <option value="vorpal">#TeamVorpal</option>
+			 <option value="novorpal">#TeamNoVorpal</option>
+			 <option value="duck">QAKE</option>
+		  </select>  
+		  <br><br>
+  		  <button type="button" onclick="revealBingo()">I'm ready!</button>
+		</form>
+	</p>
+	<p>
+		<div id="preview" class="stamp" style="display: inline-block; margin: auto;"></div>
+	</p>
+	</div>
+	</div>
+</div>
+<div id="control" style="display: none; position: absolute; top: 160px; width: 400px; height: 400px; z-index: 2;">
+ <div id="a11" class="ctrl"><img src="blank.png" onclick="swapImage('11','11b')"></div>
+ <div id="a11b" class="ctrl2"><img src="blank.png" onclick="swapImage('11','11b')"></div>
+ <div id="a12" class="ctrl"><img src="blank.png" onclick="swapImage('12','12b')"></div>
+ <div id="a12b" class="ctrl2"><img src="blank.png" onclick="swapImage('12b','12')"></div>
+ <div id="a13" class="ctrl"><img src="blank.png" onclick="swapImage('13','13b')"></div>
+ <div id="a13b" class="ctrl2"><img src="blank.png" onclick="swapImage('13b','13')"></div>
+ <div id="a14" class="ctrl"><img src="blank.png" onclick="swapImage('14','14b')"></div>
+ <div id="a14b" class="ctrl2"><img src="blank.png" onclick="swapImage('14b','14')"></div>
+ <div id="a15" class="ctrl"><img src="blank.png" onclick="swapImage('15','15b')"></div>
+ <div id="a15b" class="ctrl2"><img src="blank.png" onclick="swapImage('15b','15')"></div>
+ <div id="a21" class="ctrl"><img src="blank.png" onclick="swapImage('21','21b')"></div>
+ <div id="a21b" class="ctrl2"><img src="blank.png" onclick="swapImage('21b','21')"></div>
+ <div id="a22" class="ctrl"><img src="blank.png" onclick="swapImage('22','22b')"></div>
+ <div id="a22b" class="ctrl2"><img src="blank.png" onclick="swapImage('22b','22')"></div>
+ <div id="a23" class="ctrl"><img src="blank.png" onclick="swapImage('23','23b')"></div>
+ <div id="a23b" class="ctrl2"><img src="blank.png" onclick="swapImage('23b','23')"></div>
+ <div id="a24" class="ctrl"><img src="blank.png" onclick="swapImage('24','24b')"></div>
+ <div id="a24b" class="ctrl2"><img src="blank.png" onclick="swapImage('24b','24')"></div>
+ <div id="a25" class="ctrl"><img src="blank.png" onclick="swapImage('25','25b')"></div>
+ <div id="a25b" class="ctrl2"><img src="blank.png" onclick="swapImage('25b','25')"></div>
+ <div id="a31" class="ctrl"><img src="blank.png" onclick="swapImage('31','31b')"></div>
+ <div id="a31b" class="ctrl2"><img src="blank.png" onclick="swapImage('31b','31')"></div>
+ <div id="a32" class="ctrl"><img src="blank.png" onclick="swapImage('32','32b')"></div>
+ <div id="a32b" class="ctrl2"><img src="blank.png" onclick="swapImage('32b','32')"></div>
+ <div id="a33" class="ctrl"><img src="blank.png" onclick="swapImage('33','33b')"></div>
+ <div id="a33b" class="ctrl2"><img src="blank.png" onclick="swapImage('33b','33')"></div>
+ <div id="a34" class="ctrl"><img src="blank.png" onclick="swapImage('34','34b')"></div>
+ <div id="a34b" class="ctrl2"><img src="blank.png" onclick="swapImage('34b','34')"></div>
+ <div id="a35" class="ctrl"><img src="blank.png" onclick="swapImage('35','35b')"></div>
+ <div id="a35b" class="ctrl2"><img src="blank.png" onclick="swapImage('35b','35')"></div>
+ <div id="a41" class="ctrl"><img src="blank.png" onclick="swapImage('41','41b')"></div>
+ <div id="a41b" class="ctrl2"><img src="blank.png" onclick="swapImage('41b','41')"></div>
+ <div id="a42" class="ctrl"><img src="blank.png" onclick="swapImage('42','42b')"></div>
+ <div id="a42b" class="ctrl2"><img src="blank.png" onclick="swapImage('42b','42')"></div>
+ <div id="a43" class="ctrl"><img src="blank.png" onclick="swapImage('43','43b')"></div>
+ <div id="a43b" class="ctrl2"><img src="blank.png" onclick="swapImage('43b','43')"></div>
+ <div id="a44" class="ctrl"><img src="blank.png" onclick="swapImage('44','44b')"></div>
+ <div id="a44b" class="ctrl2"><img src="blank.png" onclick="swapImage('44b','44')"></div>
+ <div id="a45" class="ctrl"><img src="blank.png" onclick="swapImage('45','45b')"></div>
+ <div id="a45b" class="ctrl2"><img src="blank.png" onclick="swapImage('45b','45')"></div>
+ <div id="a51" class="ctrl"><img src="blank.png" onclick="swapImage('51','51b')"></div>
+ <div id="a51b" class="ctrl2"><img src="blank.png" onclick="swapImage('51b','51')"></div>
+ <div id="a52" class="ctrl"><img src="blank.png" onclick="swapImage('52','52b')"></div>
+ <div id="a52b" class="ctrl2"><img src="blank.png" onclick="swapImage('52b','52')"></div>
+ <div id="a53" class="ctrl"><img src="blank.png" onclick="swapImage('53','53b')"></div>
+ <div id="a53b" class="ctrl2"><img src="blank.png" onclick="swapImage('53b','53')"></div>
+ <div id="a54" class="ctrl"><img src="blank.png" onclick="swapImage('54','54b')"></div>
+ <div id="a54b" class="ctrl2"><img src="blank.png" onclick="swapImage('54b','54')"></div>
+ <div id="a55" class="ctrl"><img src="blank.png" onclick="swapImage('55','55b')"></div>
+ <div id="a55b" class="ctrl2"><img src="blank.png" onclick="swapImage('55b','55')"></div>
+</div>
+<div id="ink" style="display: none; position: absolute; top: 160px; width: 400px; height: 400px; z-index: 1;">
+ <div id="11" class="blank"></div>
+ <div id="11b" class="stamp"></div>
+ <div id="12" class="blank"></div>
+ <div id="12b" class="stamp"></div>
+ <div id="13" class="blank"></div>
+ <div id="13b" class="stamp"></div>
+ <div id="14" class="blank"></div>
+ <div id="14b" class="stamp"></div>
+ <div id="15" class="blank"></div>
+ <div id="15b" class="stamp"></div>
+ <div id="21" class="blank"></div>
+ <div id="21b" class="stamp"></div>
+ <div id="22" class="blank"></div>
+ <div id="22b" class="stamp"></div>
+ <div id="23" class="blank"></div>
+ <div id="23b" class="stamp"></div>
+ <div id="24" class="blank"></div>
+ <div id="24b" class="stamp"></div>
+ <div id="25" class="blank"></div>
+ <div id="25b" class="stamp"></div>
+ <div id="31" class="blank"></div>
+ <div id="31b" class="stamp"></div>
+ <div id="32" class="blank"></div>
+ <div id="32b" class="stamp"></div>
+ <div id="33" class="blank"></div>
+ <div id="33b" class="stamp"></div>
+ <div id="34" class="blank"></div>
+ <div id="34b" class="stamp"></div>
+ <div id="35" class="blank"></div>
+ <div id="35b" class="stamp"></div>
+ <div id="41" class="blank"></div>
+ <div id="41b" class="stamp"></div>
+ <div id="42" class="blank"></div>
+ <div id="42b" class="stamp"></div>
+ <div id="43" class="blank"></div>
+ <div id="43b" class="stamp"></div>
+ <div id="44" class="blank"></div>
+ <div id="44b" class="stamp"></div>
+ <div id="45" class="blank"></div>
+ <div id="45b" class="stamp"></div>
+ <div id="51" class="blank"></div>
+ <div id="51b" class="stamp"></div>
+ <div id="52" class="blank"></div>
+ <div id="52b" class="stamp"></div>
+ <div id="53" class="blank"></div>
+ <div id="53b" class="stamp"></div>
+ <div id="54" class="blank"></div>
+ <div id="54b" class="stamp"></div>
+ <div id="55" class="blank"></div>
+ <div id="55b" class="stamp"></div>
+</div>
+<div id="bingo" style="display: none; position: absolute; top: 160px; width: 400px; height: 400px; background: url('bingo400.png') no-repeat scroll center; z-index: 0;">
+hi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyone
+hi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyone
+hi everyonehi everyonehi everyonehi everyonehi everyonehi everyonehi everyone
+</div>
+
+<div id="black" style="height: 56px; width: 176px; margin: 0; position:absolute; top:560px; left: 0px; background-color: black;"></div>
+<div id="timer" class="frame blue_frame" style="height: 40px; width: 224px; margin: 0; position:absolute; top: 560px; left: 160px;">
+	<div id="running" style="display: none;" onclick="pauseTimer()">
+		<div id="demo" style="display: inline-block; position: relative; top: -4px; color: white; font: 40px monospace; width: 100%;">00:00:00</div>
+	</div>
+	<div id="stopped" style="display: inline-block;" onclick="startTimer()">
+		<div style="color: white; font: 32px serif; line-height: 40px; text-align: center; margin: auto; width: 100%;">Start timer</div>
+	</div>
+	<div id="paused" style="display: none" onclick="startTimer()">
+		<div id="paused_time" style="display: inline-block; position: relative; top: -4px; color: aqua; font: 40px monospace; width: 100%;">00:00:00</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+  function swapImage(off,on) {
+  	var a = Math.random() * 20 - 10;
+    document.getElementById(off).style.display = "none";
+    document.getElementById("a"+off).style.display = "none";
+    document.getElementById(on).style.transform = "rotate("+a+"deg)";
+    document.getElementById(on).style.display = "inline-block";
+    document.getElementById("a"+on).style.display = "inline-block";
+  }
+  function swapTimer(off,on) {
+    document.getElementById(off).style.display = "none";
+    document.getElementById(on).style.display = "inline-block";
+  }
+
+
+var start = 0;
+var x = 0;
+var offset = 0;
+	function startTimer() {
+		swapTimer('paused','running');
+		swapTimer('stopped','running');
+		start = new Date().getTime();
+		x = setInterval(function() {
+
+    		// Get todays date and time
+		    var now = new Date().getTime();
+    
+   			// Find the distance between now and the count down date
+    		var distance = now - start + offset;
+        
+  			// Output the result in an element with id="demo"
+ 			document.getElementById("demo").innerHTML = displayTimer(distance);
+    					}, 1000);
+	}
+	function pauseTimer(){
+		swapTimer('running','paused');
+		var now = new Date().getTime();
+		offset = now - start + offset;
+		document.getElementById("demo").innerHTML = displayTimer(offset);
+	    document.getElementById("paused_time").innerHTML = displayTimer(offset);
+        clearInterval(x);
+	}
+	function displayTimer(distance){
+		// Time calculations for days, hours, minutes and seconds
+	    var hours = Math.floor((distance) / (1000 * 60 * 60));
+    	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    	if (hours < 10) hours = "0" + hours;
+   		if (minutes < 10) minutes = "0" + minutes;
+    	if (seconds < 10) seconds = "0" + seconds;
+    	return hours + ":" + minutes + ":" + seconds;
+	}
+
+var numCols = document.getElementById("color").length;
+var numSyms = document.getElementById("symbol").length;
+var loaded = 0;
+	
+	function doStamp() {
+		var c = document.getElementById("color").selectedIndex;
+		var s = document.getElementById("symbol").selectedIndex;
+		setStamp(document.getElementById("color")[c].value, document.getElementById("symbol")[s].value);
+	}
+	function setStamp(col,sym) {
+		var canv = document.getElementById("base");
+	    var ctx = canv.getContext("2d");
+		var colo = document.getElementById(col);
+		var symb = document.getElementById(sym);
+		ctx.globalCompositeOperation = "source-over";
+		ctx.drawImage(colo,0,0);
+		ctx.globalCompositeOperation = "destination-in";
+		ctx.drawImage(symb,0,0);
+        var url = canv.toDataURL();
+		var stamps = document.getElementsByClassName("stamp");
+		for (var i = 0; i < stamps.length; i++){
+			stamps[i].style.backgroundImage = "url(" + url + ")";
+		}
+	}
+	function selectRand() {
+		var c = Math.floor(Math.random() * numCols);
+		document.getElementById("color").selectedIndex = c;
+		var s = Math.floor(Math.random() * numSyms);
+		document.getElementById("symbol").selectedIndex = s;
+		setStamp(document.getElementById("color")[c].value, document.getElementById("symbol")[s].value);
+		document.getElementById("selection").style.display = "inline-block";	
+	}
+	function revealBingo() {
+		document.getElementById("launcher").style.display = "none";
+		document.getElementById("control").style.display = "block";
+		document.getElementById("ink").style.display = "block";
+		document.getElementById("bingo").style.display = "block";
+	}
+	function setup() {
+		var imago;
+		var nomme;
+		var i = 0;
+		for (i = 0; i < numCols; i++){
+			nomme = document.getElementById("color")[i].value;
+			imago = document.createElement("IMG");
+			imago.id = nomme;
+			imago.src = "icons/"+nomme+".png";
+			imago.style.display = "none";
+			imago.onload = function() {
+				if(++loaded >= numCols+numSyms) {
+					selectRand();
+				}
+			}
+			document.body.appendChild(imago);
+		}
+		for (i = 0; i < numSyms; i++){
+			nomme = document.getElementById("symbol")[i].value;
+			imago = document.createElement("IMG");
+			imago.id = nomme;
+			imago.src = "icons/"+nomme+".png";
+			imago.style.display = "none";
+			imago.onload = function() {
+				if(++loaded >= numCols+numSyms) {
+					selectRand();
+				}
+			}
+			document.body.appendChild(imago);
+		}
+	}
+	
+
+</script>
+</body>
+</html>
