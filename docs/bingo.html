@@ -61,14 +61,14 @@ img {
 	<p>Select your stamp:</p>
 	<p style="font: 24px serif;">
 		<form>
- 		  Color: <select id="color" name="color">
+ 		  Color: <select id="color" name="color" oninput="">
    			 <option value="red" selected>Red</option>
  			 <option value="limegreen">Green</option>
  			 <option value="dodgerblue">Blue</option>
 			 <option value="darkorchid">Purple</option>
 			 <option value="hotpink">Pink</option>
 		  </select><br><br>
-		  Symbol: <select id="symbol" name="symbol">
+		  Symbol: <select id="symbol" name="symbol" oninput="">
    			 <option value="dot" selected>Dot</option>
  			 <option value="flower">Flower</option>
  			 <option value="star">Star</option>
@@ -86,7 +86,7 @@ img {
 			 <option value="duck">QAKE</option>
 		  </select>  
 		  <br><br>
-  		  <button type="button">I'm ready!</button>
+  		  <button type="button" onclick="revealBingo()">I'm ready!</button>
 		</form>
 	</p>
 	<p>
@@ -275,6 +275,11 @@ var numCols = document.getElementById("color").length;
 var numSyms = document.getElementById("symbol").length;
 var loaded = 0;
 	
+	function doStamp() {
+		var c = document.getElementById("color").selectedIndex;
+		var s = document.getElementById("symbol").selectedIndex;
+		setStamp(document.getElementById("color")[c].value, document.getElementById("symbol")[s].value);
+	}
 	function setStamp(col,sym) {
 		var canv = document.getElementById("base");
 	    var ctx = canv.getContext("2d");
