@@ -60,7 +60,7 @@ img {
 	<div id="selection" style="display: none;">
 	<p>Select your stamp:</p>
 	<p style="font: 24px serif;">
-		<form action="/action_page.php">
+		<form>
  		  Color: <select id="color" name="color">
    			 <option value="red" selected>Red</option>
  			 <option value="limegreen">Green</option>
@@ -287,7 +287,7 @@ var loaded = 0;
         var url = canv.toDataURL();
 		var stamps = document.getElementsByClassName("stamp");
 		for (var i = 0; i < stamps.length; i++){
-			stamps[i].style.backgroundImage = url;
+			stamps[i].style.backgroundImage = "url(" + url + ")";
 		}
 	}
 	function selectRand() {
