@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>playin around with titans</title>
+	<style>
+button {
+	margin: 4px;
+	padding: 4px;
+	border-radius: 8px;
+	font-size: 16px;
+    font-weight: bold;
+}
+	</style>
+</head>
+
+<body>
+	<div id="controls">
+		<button onclick="reset()">Reset</button> 
+		<button onclick="findTargets()">Find targets</button> 
+		<button onclick="doDrunkWalks()">Drunk walk</button> 
+	</div>
+	<div id="demo" style="font: 6px monospace; width: 100%; white-space: pre;">#</div>
+</body>
+
+<script type="text/javascript">
+	function randInt(min, max) {
+ 	   return Math.floor(Math.random() * (max - min + 1) ) + min;
+	}
+	
+	Array.matrix = function(numrows, numcols, initial) {
+	    var arr = [];
+    	for (var i = 0; i < numrows; ++i) {
+        	var columns = [];
+ 	  		for (var j = 0; j < numcols; ++j) {
+ 	  			columns[j] = initial;
+    	    }
+	        arr[i] = columns;
+  	    }
+  	    return arr;
+	}
+	
+	var target = Array.matrix(6,2,32);
+	var center = [32, 32];
+	
+	var mapdata = Array.matrix(64,64,"#");
+
+	document.getElementById("demo").innerHTML = mapdata.join("\n");
+	
+	function updateDisplay() {
+		document.getElementById("demo").innerHTML = mapdata.join("\n");
+	}
+	
+	function reset() {
+		mapdata = Array.matrix(64,64,"#");
+		numbers = [];
+		updateDisplay();
+	}
+
+	var numbers = [];
+
+	function findTargets() {
+		var x, y, number, slot, wall, offx, offy = 0;
+		for (var i = 0; i < 6; i++){
+			
+			// pick a zone for each of six targets
+			slot = randInt(1,5);
+			wall = randInt(0,3);
+			number = slot + (wall * 5);
+			
+			// if this is an illegal zone, reroll
+			while (numbers.includes((number % 20))){
+				slot = randInt(1,5);
+				wall = randInt(0,3);
+				number = slot + (wall * 5);
+			}
+			
+			// block off this zone and adjacent zones
+			numbers.push((number - 1) % 20);
+			numbers.push(number % 20);
+			numbers.push((number + 1) % 20);
+			if (slot == 2){
+				numbers.push((number - 2) % 20);
+			}
+			if (slot == 5){
+				numbers.push((number + 2) % 20);
+			}
+			
+			// place the target within the zone
+			offx = randInt(0,7);
+			offy = randInt(0,7);
+			switch(wall) {
+				case 0:
+					target[i][0] = (8 * slot) + offx;
+					target[i][1] = 8 + offy;
+					break;
+				case 1:
+					target[i][0] = 63 - 8 - offx;
+					target[i][1] = 8 * slot + offy;
+					break;
+				case 2:
+					target[i][0] = 63 - (8 * slot) - offx;
+					target[i][1] = 63 - 8 - offy;
+					break;
+				case 3:
+					target[i][0] = 8 + offx;
+					target[i][1] = 63 - (8 * slot) - offy;
+					break;
+			} // end switch
+			
+			// clear a 3x3 area centered on the target
+			mapdata[target[i][0]-1][target[i][1]-1] = " ";
+			mapdata[target[i][0]-1][target[i][1]] = " ";
+			mapdata[target[i][0]-1][target[i][1]+1] = " ";
+			mapdata[target[i][0]][target[i][1]-1] = " ";
+			mapdata[target[i][0]][target[i][1]] = " ";
+			mapdata[target[i][0]][target[i][1]+1] = " ";
+			mapdata[target[i][0]+1][target[i][1]-1] = " ";
+			mapdata[target[i][0]+1][target[i][1]] = " ";
+			mapdata[target[i][0]+1][target[i][1]+1] = " ";
+
+		} // end for
+		updateDisplay();
+	}
+	
+	function doDrunkWalks(){
+		for (var i = 0; i < 6; i++) {
+			drunkWalk(target[i],center,48);
+		}
+		updateDisplay();
+	}
+	
+	function drunkWalk(source, target, steps){
+		var wind = 0;
+		var xdif = source[0] - target[0], ydif = source[1] - target[1];
+
+		// determine the greatest distance direction to the target
+		if (Math.abs(xdif) > Math.abs(ydif)) {
+			if (xdif < 0) {
+				wind = 1; // east
+			}
+			else {
+				wind = 3; // west
+			}
+		}
+		else {
+			if (ydif < 0) {
+				wind = 2; // south
+			}
+			else {
+				wind = 0; // north
+			}
+		}
+		
+		// walk as many steps as needed
+		var s = [];
+		for (var i = 0; i < steps; i++) {
+			s = drunkStep(source, target, wind);
+			source = [s[0], s[1]];
+			wind = s[2];
+		}
+		updateDisplay();
+
+	}
+	
+	function drunkStep(source, target, wind){
+		var i = randInt(1,20);
+		var x = source[0], y = source[1];
+		var xdif = x - target[0], ydif = y - target[1];
+
+		// take a step
+		switch (wind) {
+			case 0: // north
+				y = (y - 1)	% 64;
+				break;
+			case 1: // east
+				x = (x + 1)	% 64;			
+				break;
+			case 2: // south
+				y = (y + 1)	% 64;			
+				break;
+			case 3: // west
+				x = (x - 1)	% 64;			
+				break;
+		} // end stepping switch
+		
+		mapdata[x][y] = " ";
+
+		// determine a new wind direction
+		if (i<=6) { // 30%
+			// keep going
+		} else if (i<=9) { // 15%
+			// turn ccw
+			wind = (wind - 1) % 4;
+		} else if (i<=12) { // 15%
+			// turn cw
+			wind = (wind + 1) % 4;
+		} else if (i<=14) { // 10%
+			// turn towards target x
+			if (xdif < 0) {
+				wind = 1; // east
+			}
+			else {
+				wind = 3; // west
+			}
+		} else if (i<=16) { // 10%
+			// turn towards target y
+			if (ydif < 0) {
+				wind = 2; // south
+			}
+			else {
+				wind = 0; // north
+			}
+		} else if (i<=20) { // 20%
+			// turn towards greater of target x or y
+			if (Math.abs(xdif) > Math.abs(ydif)) {
+				if (xdif < 0) {
+					wind = 1; // east
+				}
+				else {
+					wind = 3; // west
+				}
+			}
+			else {
+				if (ydif < 0) {
+					wind = 2; // south
+				}
+				else {
+					wind = 0; // north
+				}
+			}
+		} else if (i<=21) { // 0%
+			// turn a random direction
+			wind = randInt(0,3);
+		} else if (i<=21) { // 0%
+			// turn away from target x
+			if (xdif < 0) {
+				wind = 3; // opposite east
+			}
+			else {
+				wind = 1; // opposite west
+			}
+		} else if (i<=21) { // 0%
+			// turn away from target y
+			if (ydif < 0) {
+				wind = 0; // opposite south
+			}
+			else {
+				wind = 2; // opposite north
+			}
+		} // end wind direction if else
+		
+		updateDisplay();
+
+		return [x, y, wind];
+	}
+	
+
+</script>
+
+</html>
