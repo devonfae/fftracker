@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<head>
+<title>Final Fantasy Tracker</title>
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 0;
+}
+#tracker {
+	background-color: #000000;
+	height: 488px;
+	width: 296px;
+	text-align: center;
+	padding: 12px;
+}
+#crystals {
+	width: 320px;
+	height: 80px;
+	margin-top: -12px;
+	margin-left: -12px; 
+}
+#crystals div {
+	width: 80px;
+	height: 80px;
+	background: url('img/dark.png') no-repeat scroll center; 
+}
+.frame {
+	display: inline-block;
+	border: 8px solid transparent;
+	margin: 0px auto -8px;
+	width: auto;
+	padding: 0;
+	text-align: center;
+}
+.blue_frame {
+	border-image: url('border.png') 8 repeat;
+	background-color: #251F8A;
+}
+.black_frame {
+	border-image: url('border-black.png') 8 repeat; 
+}
+#items div {
+	padding: 0px;
+}
+#places div {
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-position: center;
+	border: 2px solid black;
+	width: 60px;
+	height: 40px; 
+}
+/* [title] {
+	position: relative;
+}
+[title]::after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	content: attr(title);
+	color: white;
+    text-shadow: 0px 0px 2px black,0px 0px 1px black,0.5px 0.5px 2px black;
+	font: 8px serif;
+	text-align: center;
+	z-index: 1;
+} */
+</style>
+</head>
+
+<body>
+
+<div id="tracker">
+
+<div id="crystals">
+	<div title="EARTH" id="lich_no" style="display: inline-block;" onclick="swapImage('lich_no','lich_yes')" ></div>
+	<div title="EARTH" id="lich_yes" style="background-image: url('img/lich_yes.png'); display: none;" onclick="swapImage('lich_yes','lich_no')" ></div>
+	<div title="FIRE" id="kary_no" style="display: inline-block;" onclick="swapImage('kary_no','kary_yes')" ></div>
+	<div title="FIRE" id="kary_yes" style="background-image: url('img/kary_yes.png'); display: none;" onclick="swapImage('kary_yes','kary_no')" ></div>
+	<div title="WATER" id="kraken_no" style="display: inline-block;" onclick="swapImage('kraken_no','kraken_yes')" ></div>
+	<div title="WATER" id="kraken_yes" style="background-image: url('img/kraken_yes.png'); display: none;" onclick="swapImage('kraken_yes','kraken_no')" ></div>
+	<div title="WIND" id="tiamat_no" style="display: inline-block;" onclick="swapImage('tiamat_no','tiamat_yes')" > </div>
+	<div title="WIND" id="tiamat_yes" style="background-image: url('img/tiamat_yes.png'); display: none;" onclick="swapImage('tiamat_yes','tiamat_no')" > </div>
+</div>
+
+<div id="items" class="frame blue_frame" >
+<!-- bridge, lute, ship, rod, canoe, cube, bottle -->
+<span id="main_npc_items"> 
+	<span id="bridge" title="BRIDGE">
+		<div id="bridge_no" style="background: url('img/bridge_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('bridge_no','bridge_yes')" > </div>
+		<div id="bridge_yes" style="background: url('img/bridge_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('bridge_yes','bridge_no')" > </div>
+	</span>
+	<div id="lute" title="LUTE" style="display: inline-block;">
+		<div id="lute_no" style="background: url('img/lute_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('lute_no','lute_yes')" > </div>
+		<div id="lute_yes" style="background: url('img/lute_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('lute_yes','lute_no')" > </div>
+	</div>
+	<span id="ship" title="SHIP">
+		<div id="ship_no" style="background: url('img/ship_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('ship_no','ship_yes')" > </div>
+		<div id="ship_yes" style="background: url('img/ship_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('ship_yes','ship_no')" > </div>
+	</span>
+	<span id="rod" title="ROD">
+		<div id="rod_no" style="background: url('img/rod_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('rod_no','rod_yes')" > </div>
+		<div id="rod_yes" style="background: url('img/rod_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('rod_yes','rod_no')" > </div>
+	</span>
+	<span id="canoe" title="CANOE">
+		<div id="canoe_no" style="background: url('img/canoe_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('canoe_no','canoe_yes')" > </div>
+		<div id="canoe_yes" style="background: url('img/canoe_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('canoe_yes','canoe_no')" > </div>
+	</span>
+	<span id="cube" title="CUBE">
+		<div id="cube_no" style="background: url('img/cube_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('cube_no','cube_yes')" > </div>
+		<div id="cube_yes" style="background: url('img/cube_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('cube_yes','cube_no')" > </div>
+	</span>
+	<div id="bottle" title="BOTTLE" style="display: inline-block;">
+		<div id="bottle_no" style="background: url('img/bottle_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('bottle_no','bottle_yes')" > </div>
+		<div id="bottle_yes" style="background: url('img/bottle_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('bottle_yes','bottle_no')" > </div>
+	</div>
+</span>
+<!-- crystal, herb, key, canal, oxyale, chime, xcal -->
+<span id="fetch_npc_items">
+	<div id="crystal" title="CRYSTAL" style="display: inline-block;">
+		<div id="crystal_no" style="background: url('img/crystal_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('crystal_no','crystal_yes')" > </div>
+		<div id="crystal_yes" style="background: url('img/crystal_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('crystal_yes','crystal_no')" > </div>
+	</div>
+	<div id="herb" title="HERB" style="display: inline-block;">
+		<div id="herb_no" style="background: url('img/herb_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('herb_no','herb_yes')" > </div>
+		<div id="herb_yes" style="background: url('img/herb_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('herb_yes','herb_no')" > </div>
+	</div>
+	<span id="key" title="KEY">
+		<div id="key_no" style="background: url('img/key_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('key_no','key_yes')" > </div>
+		<div id="key_yes" style="background: url('img/key_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('key_yes','key_no')" > </div>
+	</span>
+	<span id="canal" title="CANAL">
+		<div id="canal_no" style="background: url('img/canal_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('canal_no','canal_yes')" > </div>
+		<div id="canal_yes" style="background: url('img/canal_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('canal_yes','canal_no')" > </div>
+	</span>
+	<span id="oxyale" title="OXYALE">
+		<div id="oxyale_no" style="background: url('img/oxyale_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('oxyale_no','oxyale_yes')" > </div>
+		<div id="oxyale_yes" style="background: url('img/oxyale_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('oxyale_yes','oxyale_no')" > </div>
+	</span>
+	<span id="chime" title="CHIME">
+		<div id="chime_no" style="background: url('img/chime_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('chime_no','chime_yes')" > </div>
+		<div id="chime_yes" style="background: url('img/chime_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('chime_yes','chime_no')" > </div>
+	</span>
+	<span id="xcal" title="EXCALIBUR" style="display: none;">
+		<div id="xcal_no" style="background: url('img/xcal_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('xcal_no','xcal_yes')" > </div>
+		<div id="xcal_yes" style="background: url('img/xcal_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('xcal_yes','xcal_no')" > </div>
+	</span>
+</span>
+<!-- adamant, ruby, crown, levistone, tnt, slab -->
+<span id="other_key_items">
+	<div id="adamant" title="ADAMANT" style="display: inline-block;">
+		<div id="adamant_no" style="background: url('img/adamant_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('adamant_no','adamant_yes')" > </div>
+		<div id="adamant_yes" style="background: url('img/adamant_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('adamant_yes','adamant_no')" > </div>
+	</div>
+	<div id="ruby" title="RUBY" style="display: inline-block;">
+		<div id="ruby_no" style="background: url('img/ruby_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('ruby_no','ruby_yes')" > </div>
+		<div id="ruby_yes" style="background: url('img/ruby_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('ruby_yes','ruby_no')" > </div>
+	</div>
+	<div id="crown" title="CROWN" style="display: inline-block;">
+		<div id="crown_no" style="background: url('img/crown_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('crown_no','crown_yes')" > </div>
+		<div id="crown_yes" style="background: url('img/crown_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('crown_yes','crown_no')" > </div>
+	</div>
+	<span id="levistone" title="FLOATER">
+		<div id="levistone_no" style="background: url('img/levistone_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('levistone_no','levistone_yes')" > </div>
+		<div id="levistone_yes" style="background: url('img/levistone_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('levistone_yes','airship_yes')" > </div>
+		<div id="airship_yes" style="background: url('img/airship_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('airship_yes','levistone_no')" > </div>
+	</span>
+	<div id="tnt" title="TNT" style="display: inline-block;">
+		<div id="tnt_no" style="background: url('img/tnt_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('tnt_no','tnt_yes')" > </div>
+		<div id="tnt_yes" style="background: url('img/tnt_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('tnt_yes','tnt_no')" > </div>
+	</div>
+	<div id="slab" title="SLAB" style="display: inline-block;">
+		<div id="slab_no" style="background: url('img/slab_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('slab_no','slab_yes')" > </div>
+		<div id="slab_yes" style="background: url('img/slab_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('slab_yes','talk_yes')" > </div>
+		<div id="talk_yes" style="background: url('img/talk_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('talk_yes','slab_no')" > </div>
+	</div>
+</span>
+<!-- tail -->
+<span id="tail_span">
+	<span id="tail" title="TAIL">
+		<div id="tail_no" style="background: url('img/tail_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('tail_no','tail_yes')" > </div>
+		<div id="tail_yes" style="background: url('img/tail_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('tail_yes','promotion_yes')" > </div>
+		<div id="promotion_yes" style="background: url('img/promotion_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('promotion_yes','tail_no')" > </div>
+	</span>
+</span>
+<!-- masamune, ribbon, opal, white, power, defender, thor -->
+<span id="equipment" style="display: none;">
+	<span id="masamune" title="MASMUNE" >
+		<div id="masamune_no" style="background: url('img/masamune_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('masamune_no','masamune_yes')" > </div>
+		<div id="masamune_yes" style="background: url('img/masamune_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('masamune_yes','masamune_no')" > </div>
+	</span>
+	<span id="ribbon" title="RIBBON">
+		<div id="ribbon_no" style="background: url('img/ribbon_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('ribbon_no','ribbon_yes')" > </div>
+		<div id="ribbon_yes" style="background: url('img/ribbon_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('ribbon_yes','ribbon_no')" > </div>
+	</span>
+	<span id="opal" title="OPAL" >
+		<div id="opal_no" style="background: url('img/opal_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('opal_no','opal_yes')" > </div>
+		<div id="opal_yes" style="background: url('img/opal_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('opal_yes','opal_no')" > </div>
+	</span>
+	<span id="white" title="WHITE" >
+		<div id="white_no" style="background: url('img/white_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('white_no','white_yes')" > </div>
+		<div id="white_yes" style="background: url('img/white_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('white_yes','white_no')" > </div>
+	</span>
+	<span id="power" title="POWER">
+		<div id="power_no" style="background: url('img/power_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('power_no','power_yes')" > </div>
+		<div id="power_yes" style="background: url('img/power_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('power_yes','power_no')" > </div>
+	</span>
+	<span id="defender" title="DEFENSE" >
+		<div id="defender_no" style="background: url('img/defender_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('defender_no','defender_yes')" > </div>
+		<div id="defender_yes" style="background: url('img/defender_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('defender_yes','defender_no')" > </div>
+	</span>
+	<span id="thor" title="THOR" >
+		<div id="thor_no" style="background: url('img/thor_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('thor_no','thor_yes')" > </div>
+		<div id="thor_yes" style="background: url('img/thor_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('thor_yes','thor_no')" > </div>
+	</span>
+</span>
+</div>
+
+<div id="npcs" class="frame blue_frame" >
+<!-- king, sara, bikke, sarda, lukhan, robot, caravan -->
+<span id="main_npcs">
+	<span id="king" title="KING">
+		<div id="king_no" style="background: url('img/king_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('king_no','king_yes')" > </div>
+		<div id="king_yes" style="background: url('img/king_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('king_yes','king_no')" > </div>
+	</span>
+	<span id="sara" title="SARA">
+		<div id="sara_no" style="background: url('img/sara_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('sara_no','sara_yes')" > </div>
+		<div id="sara_yes" style="background: url('img/sara_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('sara_yes','sara_no')" > </div>
+	</span>
+	<span id="bikke" title="BIKKE">
+		<div id="bikke_no" style="background: url('img/bikke_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('bikke_no','bikke_yes')" > </div>
+		<div id="bikke_yes" style="background: url('img/bikke_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('bikke_yes','bikke_no')" > </div>
+	</span>
+	<span id="sarda" title="SARDA">
+		<div id="sarda_no" style="background: url('img/sarda_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('sarda_no','sarda_yes')" > </div>
+		<div id="sarda_yes" style="background: url('img/sarda_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('sarda_yes','sarda_no')" > </div>
+	</span>
+	<span id="lukhan" title="LUKAHN">
+		<div id="lukhan_no" style="background: url('img/lukhan_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('lukhan_no','lukhan_yes')" > </div>
+		<div id="lukhan_yes" style="background: url('img/lukhan_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('lukhan_yes','lukhan_no')" > </div>
+	</span>
+	<span id="robot" title="ROBOT">
+		<div id="robot_no" style="background: url('img/robot_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('robot_no','robot_yes')" > </div>
+		<div id="robot_yes" style="background: url('img/robot_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('robot_yes','robot_no')" > </div>
+	</span>
+	<span id="caravan" title="UNDERHILL">
+		<div id="caravan_no" style="background: url('img/caravan_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('caravan_no','caravan_yes')" > </div>
+		<div id="caravan_yes" style="background: url('img/caravan_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('caravan_yes','caravan_no')" > </div>
+	</span>
+</span>
+<!-- astos, matoya, prince, nerrick, smyth, lufaine, fairy -->
+<div id="fetch_npcs">
+	<span id="astos" title="ASTOS">
+		<div id="astos_no" style="background: url('img/astos_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('astos_no','astos_yes')" > </div>
+		<div id="astos_yes" style="background: url('img/astos_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('astos_yes','astos_no')" > </div>
+	</span>
+	<span id="matoya" title="MATOYA">
+		<div id="matoya_no" style="background: url('img/matoya_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('matoya_no','matoya_yes')" > </div>
+		<div id="matoya_yes" style="background: url('img/matoya_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('matoya_yes','matoya_no')" > </div>
+	</span>
+	<span id="prince" title="PRINCE">
+		<div id="prince_no" style="background: url('img/prince_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('prince_no','prince_yes')" > </div>
+		<div id="prince_yes" style="background: url('img/prince_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('prince_yes','prince_no')" > </div>
+	</span>
+	<span id="nedrick" title="NERRICK">
+		<div id="nedrick_no" style="background: url('img/nedrick_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('nedrick_no','nedrick_yes')" > </div>
+		<div id="nedrick_yes" style="background: url('img/nedrick_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('nedrick_yes','nedrick_no')" > </div>
+	</span>
+	<span id="smythe" title="SMYTH">
+		<div id="smythe_no" style="background: url('img/smythe_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('smythe_no','smythe_yes')" > </div>
+		<div id="smythe_yes" style="background: url('img/smythe_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('smythe_yes','smythe_no')" > </div>
+	</span>
+	<span id="lufaine" title="LUFAINE">
+		<div id="lufaine_no" style="background: url('img/lufaine_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('lufaine_no','lufaine_yes')" > </div>
+		<div id="lufaine_yes" style="background: url('img/lufaine_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('lufaine_yes','lufaine_no')" > </div>
+	</span>
+	<span id="fairy" title="FAIRY">
+		<div id="fairy_no" style="background: url('img/fairy_not_40.png') no-repeat scroll center; width: 40px; height: 40px; display: none;" onclick="swapImage('fairy_no','fairy_yes')" > </div>
+		<div id="fairy_yes" style="background: url('img/fairy_40.png') no-repeat scroll center; width: 40px; height: 40px; display: inline-block;" onclick="swapImage('fairy_yes','fairy_no')" > </div>
+	</span>
+</div>
+
+</div>
+
+<div id="places" class="frame black_frame" style="width: auto; display: inline-block;">
+<div id="loosies" class="frame black_frame" style="width: 124px; float:right; display: none;">
+	<span id="four_loose"  style="display: none;">
+		<div id="4_4_loose" style="background: url('img/4-4.png') no-repeat scroll center; border: 2px solid black; width: 60px; height: 40px; display: inline-block;" onclick="swapImage('4_4_loose','3_4_loose')" > </div>
+		<div id="3_4_loose" style="background: url('img/3-4.png') no-repeat scroll center; border: 2px solid black; width: 60px; height: 40px; display: none;" onclick="swapImage('3_4_loose','2_4_loose')" > </div>
+		<div id="2_4_loose" style="background: url('img/2-4.png') no-repeat scroll center; border: 2px solid black; width: 60px; height: 40px; display: none;" onclick="swapImage('2_4_loose','1_4_loose')" > </div>
+		<div id="1_4_loose" style="background: url('img/1-4.png') no-repeat scroll center; border: 2px solid black; width: 60px; height: 40px; display: none;" onclick="swapImage('1_4_loose','0_4_loose')" > </div>
+		<div id="0_4_loose" style="background: url('img/0-4.png') no-repeat scroll center; border: 2px solid black; width: 60px; height: 40px; display: none;" onclick="swapImage('0_4_loose','4_4_loose')" > </div>
+	</span>
+	<span id="six_loose">
+		<div id="6_6_loose" style="background: url('img/6-6.png') no-repeat scroll center; border: 2px solid black; width: 120px; height: 40px; display: inline-block;" onclick="swapImage('6_6_loose','5_6_loose')" > </div>
+		<div id="5_6_loose" style="background: url('img/5-6.png') no-repeat scroll center; border: 2px solid black; width: 120px; height: 40px; display: none;" onclick="swapImage('5_6_loose','4_6_loose')" > </div>
+		<div id="4_6_loose" style="background: url('img/4-6.png') no-repeat scroll center; border: 2px solid black; width: 120px; height: 40px; display: none;" onclick="swapImage('4_6_loose','3_6_loose')" > </div>
+		<div id="3_6_loose" style="background: url('img/3-6.png') no-repeat scroll center; border: 2px solid black; width: 120px; height: 40px; display: none;" onclick="swapImage('3_6_loose','2_6_loose')" > </div>
+		<div id="2_6_loose" style="background: url('img/2-6.png') no-repeat scroll center; border: 2px solid black; width: 120px; height: 40px; display: none;" onclick="swapImage('2_6_loose','1_6_loose')" > </div>
+		<div id="1_6_loose" style="background: url('img/1-6.png') no-repeat scroll center; border: 2px solid black; width: 120px; height: 40px; display: none;" onclick="swapImage('1_6_loose','0_6_loose')" > </div>
+		<div id="0_6_loose" style="background: url('img/0-6.png') no-repeat scroll center; border: 2px solid black; width: 120px; height: 40px; display: none;" onclick="swapImage('0_6_loose','6_6_loose')" > </div>	
+	</span>
+</div>
+	<span id="ice" title="ICE">
+		<div id="ice_no" style="background-image: url('img/ice_not_64.png'); display: none;" onclick="swapImage('ice_no','ice_yes')" > </div>
+		<div id="ice_yes" style="background-image: url('img/ice_64.png'); display: inline-block;" onclick="swapImage('ice_yes','ice_no')" > </div>
+	</span>
+	<span id="ordeal" title="ORDEAL">
+		<div id="ordeal_no" style="background-image: url('img/ordeal_not_64.png'); display: none;" onclick="swapImage('ordeal_no','ordeal_yes')" > </div>
+		<div id="ordeal_yes" style="background-image: url('img/ordeal_64.png'); display: inline-block;" onclick="swapImage('ordeal_yes','ordeal_no')" > </div>
+	</span>
+	<span id="marsh" title="MARSH">
+		<div id="marsh_no" style="background-image: url('img/marsh_not_64.png'); display: none;" onclick="swapImage('marsh_no','marsh_yes')" > </div>
+		<div id="marsh_yes" style="background-image: url('img/marsh_64.png'); display: inline-block;" onclick="swapImage('marsh_yes','marsh_no')" > </div>
+	</span>
+	<span id="titans" title="TITANS" style="display: none;">
+		<div id="titans_no" style="background-image: url('img/titans_not_64.png'); display: none;" onclick="swapImage('titans_no','titans_yes')" > </div>
+		<div id="titans_yes" style="background-image: url('img/titans_64.png'); display: inline-block;" onclick="swapImage('titans_yes','titans_no')" > </div>
+	</span>
+	<span id="earth" title="EARTH" style="display: none;">
+		<div id="earth_no" style="background-image: url('img/earth_not_64.png'); display: none;" onclick="swapImage('earth_no','earth_yes')" > </div>
+		<div id="earth_yes" style="background-image: url('img/earth_64.png'); display: inline-block;" onclick="swapImage('earth_yes','earth_no')" > </div>
+	</span>
+	<span id="volcano" title="VOLCANO">
+		<div id="volcano_no" style="background-image: url('img/volcano_not_64.png'); display: none;" onclick="swapImage('volcano_no','volcano_yes')" > </div>
+		<div id="volcano_yes" style="background-image: url('img/volcano_64.png'); display: inline-block;" onclick="swapImage('volcano_yes','volcano_no')" > </div>
+	</span>
+	<span id="sea" title="SEA" style="display: none;">
+		<div id="sea_no" style="background-image: url('img/sea_not_64.png'); display: none;" onclick="swapImage('sea_no','sea_yes')" > </div>
+		<div id="sea_yes" style="background-image: url('img/sea_64.png'); display: inline-block;" onclick="swapImage('sea_yes','sea_no')" > </div>
+	</span>
+	<span id="sky" title="SKY" style="display: none;">
+		<div id="sky_no" style="background-image: url('img/sky_not_64.png'); display: none;" onclick="swapImage('sky_no','sky_yes')" > </div>
+		<div id="sky_yes" style="background-image: url('img/sky_64.png'); display: inline-block;" onclick="swapImage('sky_yes','sky_no')" > </div>
+	</span>
+	<span id="coneria" title="CONERIA">
+		<div id="coneria_no" style="background-image: url('img/coneria_not_64.png'); display: none;" onclick="swapImage('coneria_no','coneria_yes')" > </div>
+		<div id="coneria_yes" style="background-image: url('img/coneria_64.png'); display: inline-block;" onclick="swapImage('coneria_yes','coneria_no')" > </div>
+	</span>
+	<span id="marsh_locked" title="MARSH 2" style="display: none;">
+		<div id="marsh_locked_no" style="background-image: url('img/marsh_locked_not_64.png'); display: none;" onclick="swapImage('marsh_locked_no','marsh_locked_yes')" > </div>
+		<div id="marsh_locked_yes" style="background-image: url('img/marsh_locked_64.png'); display: inline-block;" onclick="swapImage('marsh_locked_yes','marsh_locked_no')" > </div>
+	</span>
+	<span  title="spacer">
+		<div style="display: inline-block;" > </div>
+	</span>
+	<span  title="spacer">
+		<div style="display: inline-block;" > </div>
+	</span>
+	<span  title="spacer">
+		<div style="display: inline-block;" > </div>
+	</span>
+
+</div>
+
+
+<div id="timer" class="frame blue_frame" style="float: right; position: relative; top: -52px; height: 60px; width: 60%; margin: 8px 0 0 0;">
+	<div id="running" style="display: none;" onclick="pauseTimer()">
+		<div style="color: white; font: 24px serif; text-align: left; margin: auto; width: 100%;">Play time</div>
+		<div id="demo" style="color: white; font: 30px monospace; text-align: right; width: 100%;">00:00:00</div>
+	</div>
+	<div id="stopped" style="display: inline-block;" onclick="startTimer()">
+		<div style="color: white; font: 30px serif; line-height: 60px; text-align: center; margin: auto; width: 100%;">Click to start</div>
+	</div>
+	<div id="paused" style="display: none" onclick="startTimer()">
+		<div style="color: aqua; font: 24px serif; text-align: left; margin: auto; width: 100%;">Paused</div>
+		<div id="paused_time" style="color: aqua; font: 30px monospace; text-align: right; width: 100%;">00:00:00</div>
+	</div>
+</div>
+
+</div>
+
+<!-- Switch images script -->
+<script type="text/javascript">
+  function swapImage(off,on) {
+    document.getElementById(off).style.display = "none";
+    document.getElementById(on).style.display = "inline-block";
+  }
+
+var start = 0;
+var x = 0;
+var offset = 0;
+	function startTimer() {
+		swapImage('paused','running');
+		swapImage('stopped','running');
+		start = new Date().getTime();
+		x = setInterval(function() {
+
+    		// Get todays date and time
+		    var now = new Date().getTime();
+    
+   			// Find the distance between now and the count down date
+    		var distance = now - start + offset;
+        
+  			// Output the result in an element with id="demo"
+ 			document.getElementById("demo").innerHTML = displayTimer(distance);
+    					}, 1000);
+	}
+	function pauseTimer(){
+		swapImage('running','paused');
+		var now = new Date().getTime();
+		offset = now - start + offset;
+		document.getElementById("demo").innerHTML = displayTimer(offset);
+	    document.getElementById("paused_time").innerHTML = displayTimer(offset);
+        clearInterval(x);
+	}
+	function displayTimer(distance){
+		// Time calculations for days, hours, minutes and seconds
+	    var hours = Math.floor((distance) / (1000 * 60 * 60));
+    	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    	if (hours < 10) hours = "0" + hours;
+   		if (minutes < 10) minutes = "0" + minutes;
+    	if (seconds < 10) seconds = "0" + seconds;
+    	return hours + ":" + minutes + ":" + seconds;
+	}
+
+</script>
+</body>
+</html>
